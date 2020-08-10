@@ -9,7 +9,7 @@
     <form th:action="@{/add}" th:object="${todoForm}" method="post" class="p-3">
         <div class="form-group row">
             <label for="todo">todo：</label>
-            <input type="text" th:field="*{todo}" size="" value="無し" class="form-control"/>
+            <input type="text" th:field="*{todo}" required value="無し" class="form-control"/>
         </div>
         <input type="submit" value="追加" class="btn btn-primary"/>
     </form>

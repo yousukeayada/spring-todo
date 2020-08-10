@@ -2,6 +2,7 @@ package com.yousukeayada.springtodo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.yousukeayada.springtodo.entity.TodoEntity;
 import com.yousukeayada.springtodo.repository.TodoRepository;
@@ -16,6 +17,17 @@ public class TodoService {
     TodoRepository todoRepository;
 
 
+    public TodoEntity getTodo(int id) {
+        Optional<TodoEntity> result = todoRepository.findById(id);
+        try {
+            return result.get();
+        } catch (Exception e) {
+            System.out.println(e);
+            return new TodoEntity();
+        }
+    }
+
+
     public List<TodoEntity> getAllTodo() {
         Iterable<TodoEntity> result = todoRepository.findAll();
         ArrayList<TodoEntity> todoList = new ArrayList<>();
@@ -27,6 +39,17 @@ public class TodoService {
     
     public void addTodo(TodoEntity te) {
         todoRepository.save(te);
+    }
+
+
+    public TodoEntity updateTodo(TodoEntity te) {
+        Optional<TodoEntity> result = todoRepository.findById(te.getId());
+        if(result.isPresent()) {
+            todoRepository.save(te);
+            return te;
+        }else {
+            return new TodoEntity();
+        }
     }
 
 

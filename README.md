@@ -1,5 +1,6 @@
 ## 概要
-Spring Boot を使った簡易的な Todo リスト管理アプリ。
+- Spring Boot を使った簡易的な Todo リスト管理アプリ。
+- API としても使える。
 
 ## 使い方
 - MySQL 起動
@@ -18,4 +19,14 @@ grant all on todo.* to "springtodo"@"%";
 ./gradlew bootRun
 ```
 
+### GUI
 - http://localhost:8080 にアクセス
+
+### API
+```bash
+curl -X GET http://localhost:8080/api/todos
+curl -X GET http://localhost:8080/api/todos/{id}
+curl -X POST -H 'Content-Type:application/json' -d '{"todo":"hoge"}' http://localhost:8080/api/todos
+curl -X PUT -H 'Content-Type:application/json' -d '{"todo":"hoge"}' http://localhost:8080/api/todos/{id}
+curl -X DELETE http://localhost:8080/api/todos/{id}
+```
