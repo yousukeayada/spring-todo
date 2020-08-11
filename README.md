@@ -17,6 +17,10 @@ grant all on todo.* to "springtodo"@"%";
 - 実行
 ```bash
 ./gradlew bootRun
+
+# jar ファイルにビルドして実行してもよい
+./gradlew build
+java -jar build/libs/< jar ファイル名>
 ```
 
 ### GUI
