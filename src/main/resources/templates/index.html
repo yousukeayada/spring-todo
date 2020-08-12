@@ -6,23 +6,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body class="container">
-    <form th:action="@{/add}" th:object="${todoForm}" method="post" class="p-3">
-        <div class="form-group row">
-            <label for="todo">todo：</label>
-            <input type="text" th:field="*{todo}" required value="無し" class="form-control"/>
+    <form th:action="@{/add}" method="post" class="m-3">
+        <div class="form-group">
+            <input type="text" name="todo" th:value="*{todo}" required class="form-control" placeholder="input todo"/>
+            <input type="date" name="deadline" th:value="*{deadline}" class="form-control"/>
         </div>
         <input type="submit" value="追加" class="btn btn-primary"/>
     </form>
 
 
     <table class="table table-hover">
-        <tr><th>id</th><th>todo</th></tr>
+        <tr><th>id</th><th>todo</th><th>deadline</th></tr>
         <tr th:each="todo: ${todoList}">
             <form th:action="@{/delete}" method="post" class="">
                 <input type="hidden" name="id" th:value="${todo.id}" />
                 <td>[[${todo.id}]]</td>
                 <input type="hidden" name="todo" th:value="${todo.todo}" />
                 <td>[[${todo.todo}]]</td>
+                <td>[[${todo.deadline}]]</td>
                 <td>
                     <input type="submit" value="削除" class="btn btn-danger"/>
                 </td>

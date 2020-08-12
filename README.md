@@ -1,5 +1,5 @@
 ## 概要
-- Spring Boot を使った簡易的な Todo リスト管理アプリ。
+- Spring Boot を使った簡易的な Todo 管理アプリ。
 - API としても使える。
 
 ## 使い方

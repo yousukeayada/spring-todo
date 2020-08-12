@@ -1,15 +1,16 @@
 package com.yousukeayada.springtodo.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.yousukeayada.springtodo.entity.TodoEntity;
 import com.yousukeayada.springtodo.service.TodoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,7 +21,7 @@ public class TodoController {
     
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("todoForm", new TodoEntity());
+        // model.addAttribute("todoForm", new TodoEntity());
 
         List<TodoEntity> todoList = todoService.getAllTodo();
         model.addAttribute("todoList", todoList);
@@ -30,9 +31,12 @@ public class TodoController {
 
 
     @PostMapping("/add")
-    public String addTodo(@ModelAttribute("todoForm") TodoEntity te) {
+    public String addTodo(@RequestParam("todo") String todo, @RequestParam("deadline") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate deadline) {
+        TodoEntity te = new TodoEntity();
+        te.setTodo(todo);
+        te.setDeadline(deadline);
         todoService.addTodo(te);
-        System.out.println("追加：" + te.todo);
+        System.out.println("追加：" + todo);
         return "redirect:/";
     }
 

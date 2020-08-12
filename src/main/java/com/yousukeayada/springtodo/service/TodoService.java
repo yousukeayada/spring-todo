@@ -8,6 +8,7 @@ import com.yousukeayada.springtodo.entity.TodoEntity;
 import com.yousukeayada.springtodo.repository.TodoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 
@@ -29,7 +30,7 @@ public class TodoService {
 
 
     public List<TodoEntity> getAllTodo() {
-        Iterable<TodoEntity> result = todoRepository.findAll();
+        Iterable<TodoEntity> result = todoRepository.findAll(Sort.by(Sort.Direction.ASC, "deadline"));
         ArrayList<TodoEntity> todoList = new ArrayList<>();
         result.forEach(todoList::add);
 
