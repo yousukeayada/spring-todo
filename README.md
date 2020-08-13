@@ -3,6 +3,7 @@
 - API としても使える。
 
 ## 使い方
+### ローカルで MySQL を使う場合
 - MySQL 起動
 - ユーザと DB 作成
 ```bash
@@ -12,6 +13,26 @@ mysql -uroot -p
 create database todo;
 create user springtodo identified by "pass";
 grant all on todo.* to "springtodo"@"%";
+```
+
+- `application.properties` に以下を記載。
+```java
+spring.datasource.url=jdbc:mysql://localhost:3306/todo?serverTimezone=JST
+spring.datasource.username=springtodo
+spring.datasource.password=pass
+spring.jpa.hibernate.ddl-auto=update
+```
+
+### Heroku の ClearDB を使う場合
+```bash
+heroku config:set CLEARDB_DATABASE_URL=mysql://b871541e97470d:a37758ce@us-cdbr-east-02.cleardb.com/heroku_7f7b999d56f162a?reconnect=true&characterEncoding=UTF-8&characterSetResults=UTF-8&serverTimezone=JST
+export CLEARDB_DATABASE_URL=$(heroku config:get CLEARDB_DATABASE_URL)
+```
+
+- `application.properties` に以下を記載。
+```java
+spring.datasource.url=jdbc:${CLEARDB_DATABASE_URL}
+spring.jpa.hibernate.ddl-auto=update
 ```
 
 - 実行
