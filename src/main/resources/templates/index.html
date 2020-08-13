@@ -2,6 +2,7 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spring Todo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -26,6 +27,12 @@
                 <td>[[${todo.deadline}]]</td>
                 <td>
                     <input type="submit" value="削除" class="btn btn-danger"/>
+                </td>
+            </form>
+            <form th:action="@{/edit}" method="POST">
+                <input type="hidden" name="id" th:value="${todo.id}" />
+                <td>
+                    <input type="submit" value="編集" class="btn btn-primary"/>
                 </td>
             </form>
         </tr>

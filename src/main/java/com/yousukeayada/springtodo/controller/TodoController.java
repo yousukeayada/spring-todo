@@ -40,6 +40,29 @@ public class TodoController {
         return "redirect:/";
     }
 
+
+    @PostMapping("/edit")
+    public String editTodo(@RequestParam("id") int id, Model model) {
+        TodoEntity te = todoService.getTodo(id);
+        model.addAttribute("id", te.getId());
+        model.addAttribute("todo", te.getTodo());
+        model.addAttribute("deadline", te.getDeadline());
+        return "edit";
+    }
+
+
+    @PostMapping("/update")
+    public String updateTodo(@RequestParam("id") int id, @RequestParam("todo") String todo,
+                            @RequestParam("deadline") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate deadline) {
+        TodoEntity te = new TodoEntity();
+        te.setId(id);
+        te.setTodo(todo);
+        te.setDeadline(deadline);
+        todoService.updateTodo(te);
+        System.out.println("更新：" + id);
+        return "redirect:/";
+    }
+
     
     @PostMapping("/delete")
     public String deleteTodo(@RequestParam("id") int id, @RequestParam("todo") String todo) {
