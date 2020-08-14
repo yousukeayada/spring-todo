@@ -25,7 +25,7 @@ spring.jpa.hibernate.ddl-auto=update
 
 ### Heroku の ClearDB を使う場合
 ```bash
-heroku config:set CLEARDB_DATABASE_URL=mysql://<ユーザ名>:<パスワード>@<ホスト名>/<DB名>?reconnect=true&characterEncoding=UTF-8&characterSetResults=UTF-8&serverTimezone=JST
+heroku config:set CLEARDB_DATABASE_URL='mysql://<ユーザ名>:<パスワード>@<ホスト名>/<DB名>?reconnect=true&characterEncoding=UTF-8&characterSetResults=UTF-8&serverTimezone=JST'
 export CLEARDB_DATABASE_URL=$(heroku config:get CLEARDB_DATABASE_URL)
 ```
 
