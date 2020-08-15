@@ -8,23 +8,32 @@ import com.yousukeayada.springtodo.service.TodoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TodoController {
     @Autowired
     TodoService todoService;
+
+    @RequestMapping("/home")
+    public String home() {
+        return "home";
+    }
     
-    @GetMapping("/")
+    @RequestMapping("/")
     public String index(Model model) {
         // model.addAttribute("todoForm", new TodoEntity());
 
         List<TodoEntity> todoList = todoService.getAllTodo();
         model.addAttribute("todoList", todoList);
+
 
         return "index";
     }

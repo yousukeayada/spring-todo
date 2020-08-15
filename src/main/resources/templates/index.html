@@ -7,6 +7,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body class="container">
+
+    <div class="text-right">
+        <!-- Spring Security の拡張機能によって Thymeleaf で直接参照できるようになる -->
+        [[${#authentication.principal.username}]] さん
+        <form method="post" th:action="@{/logout}">
+            <input type="submit" value="logout">
+        </form>
+    </div>
+
     <form th:action="@{/add}" method="post" class="m-3">
         <div class="form-group">
             <input type="text" name="todo" th:value="*{todo}" required class="form-control" placeholder="input todo"/>

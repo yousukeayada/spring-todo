@@ -1,7 +1,5 @@
 package com.yousukeayada.springtodo.entity;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,17 +9,19 @@ import javax.persistence.Table;
 
 import lombok.Data;
 
-@Data
 @Entity
-@Table(name = "todolist")
-public class TodoEntity {
+@Table(name = "user")
+@Data
+public class LoginUser {
+
     @Id
-    @GeneratedValue
-    public int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
 
-    @Column(nullable = false)
-    public String todo;
+    @Column(name = "username")
+    private String userName;
 
-    @Column(nullable = true, columnDefinition = "DATE")
-    public LocalDate deadline;
+    @Column(name = "password")
+    private String password;
 }
