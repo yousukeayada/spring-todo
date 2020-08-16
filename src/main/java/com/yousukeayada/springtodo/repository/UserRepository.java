@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<LoginUser, Long> {
-    
+    // 引数名はエンティティのフィールド名と同じにする。
+    LoginUser findByUsername(String username);
 }

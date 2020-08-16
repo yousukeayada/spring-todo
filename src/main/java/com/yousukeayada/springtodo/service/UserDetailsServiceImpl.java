@@ -3,8 +3,8 @@ package com.yousukeayada.springtodo.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.yousukeayada.springtodo.dao.LoginUserDao;
 import com.yousukeayada.springtodo.entity.LoginUser;
+import com.yousukeayada.springtodo.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,9 +26,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
-	//DBからユーザ情報を検索するメソッドを実装したクラス
 	@Autowired
-	private LoginUserDao userDao;
+	private UserRepository repository;
 	
 	/**
 	 * UserDetailsServiceインタフェースの実装メソッド
@@ -40,8 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         
         System.out.println("username: " + userName);
 
-        // select * from user where username = userName を実行
-		LoginUser user = userDao.findUser(userName);
+		LoginUser user = repository.findByUsername(userName);
 		
 		if (user == null) {
 			throw new UsernameNotFoundException(userName + ": not found");
@@ -61,7 +59,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         // ここで使っているのは自作のUserクラスではなく、Spring が用意しているUserクラス。
         // UserDetailsをimplementしており、そのユーザが使用可能か、有効期限切れかなど、様々なフィールドをもつ。
         // ここではユーザ名、パスワード、権限のリストを引数にとるコンストラクタを使用。
-		UserDetails userDetails = (UserDetails)new User(user.getUserName(), encoder.encode(user.getPassword()),grantList);
+		UserDetails userDetails = (UserDetails)new User(user.getUsername(), encoder.encode(user.getPassword()),grantList);
 		
 		return userDetails;
 	}

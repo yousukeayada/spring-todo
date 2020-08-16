@@ -1,5 +1,6 @@
 ## 概要
 - Spring Boot を使った簡易的な Todo 管理アプリ。
+  - ログイン認証あり。
 - API としても使える。
 
 ## 使い方
@@ -44,8 +45,18 @@ spring.jpa.hibernate.ddl-auto=update
 java -jar build/libs/< jar ファイル名>
 ```
 
+### ログイン
+- 認証のためユーザデータを予め登録しておく。
+- プログラムを実行するとテーブル「user」が自動で作成される。
+```bash
+# mysql 内の操作
+insert into user values(1,"pass","test");
+```
+
 ### GUI
 - http://localhost:8080 にアクセス
+  - username: test
+  - password: pass
 
 ### API
 ```bash
