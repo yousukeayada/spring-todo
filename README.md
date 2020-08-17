@@ -59,8 +59,13 @@ insert into user values(1,"pass","test");
   - password: pass
 
 ### API
+- Cookie を保存。
 ```bash
-curl -X GET http://localhost:8080/api/todos
+curl -i -c cookie.txt -X POST -d "username=<ユーザ名>" -d "password=<パスワード>" localhost:8080/sign_in
+```
+- 以降保存した Cookie を使用する。
+```bash
+curl -X GET http://localhost:8080/api/todos -b cookie.txt
 curl -X GET http://localhost:8080/api/todos/{id}
 curl -X POST -H 'Content-Type:application/json' -d '{"todo":"hoge"}' http://localhost:8080/api/todos
 curl -X PUT -H 'Content-Type:application/json' -d '{"todo":"hoge"}' http://localhost:8080/api/todos/{id}

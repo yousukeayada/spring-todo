@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
-            .authorizeRequests()
+			.authorizeRequests()
                 .antMatchers("/home").permitAll() //home は誰でもアクセス可能
                 .antMatchers("/admin").hasRole("ADMIN") //admin は認証を通り、かつ ADMIN 権限をもつユーザのみ。hasAnyRolesで複数権限も設定可能。
 		        .anyRequest().authenticated() //その他は認証が必要。認証さえ通れば権限は不要。
@@ -64,7 +64,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 				.and()
 			.rememberMe()
-				.rememberMeParameter("remember-me"); //デフォルト値。login.html のチェックボックスの name と合わせる。
+				.rememberMeParameter("remember-me") //デフォルト値。login.html のチェックボックスの name と合わせる。
+				.and()
+			.csrf()
+				.ignoringAntMatchers("/login", "/sign_in")
+				// .csrfTokenRepository(new CookieCsrfTokenRepository())
+				; 
 	}
 	
 	/**
