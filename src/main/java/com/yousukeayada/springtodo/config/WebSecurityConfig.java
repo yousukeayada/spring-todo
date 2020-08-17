@@ -53,14 +53,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		        .loginProcessingUrl("/sign_in") //login.htmlでこのパスを指定する。このURLへリクエストが送られると認証処理が実行される
 		        .usernameParameter("username") //login.htmlのフォームのname属性を明示
 		        .passwordParameter("password")
-		        .successForwardUrl("/")
-		        .failureUrl("/login?error") //login.html内の${param.error}で参照される
+				// .successForwardUrl("/") //フォワード
+				.defaultSuccessUrl("/", true) //リダイレクト
+		        .failureUrl("/login?error") //login.html内の${param.error}で参照される。リダイレクト
 		        .permitAll()
 		        .and()
 		    .logout()
 		        .logoutUrl("/logout")
 		        .logoutSuccessUrl("/login?logout") //login.html内の${param.logout}で参照される
-		        .permitAll();
+				.permitAll()
+				.and()
+			.rememberMe()
+				.rememberMeParameter("remember-me"); //デフォルト値。login.html のチェックボックスの name と合わせる。
 	}
 	
 	/**
