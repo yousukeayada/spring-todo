@@ -16,7 +16,7 @@ import lombok.Data;
 @Table(name = "todolist")
 public class TodoEntity {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public int id;
 
     @Column(nullable = false)
