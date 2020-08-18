@@ -1,7 +1,37 @@
 ## 概要
 - Spring Boot を使った簡易的な Todo 管理アプリ。
   - ログイン認証あり。
+  - 参照、追加、編集、削除を行える。
 - API としても使える。
+### 環境
+- Spring Boot 2.3.2
+- Java 11
+- MySQL 8.0.19
+### DB 設計
+- todolist
+```bash
+mysql> desc todolist;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| id       | int          | NO   | PRI | NULL    |       |
+| deadline | date         | YES  |     | NULL    |       |
+| todo     | varchar(255) | NO   |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+```
+- user
+```bash
+mysql> desc user;
++----------+--------------+------+-----+---------+-------+
+| Field    | Type         | Null | Key | Default | Extra |
++----------+--------------+------+-----+---------+-------+
+| id       | bigint       | NO   | PRI | NULL    |       |
+| password | varchar(255) | YES  |     | NULL    |       |
+| username | varchar(255) | YES  |     | NULL    |       |
++----------+--------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+```
 
 ## 使い方
 ### ローカルで MySQL を使う場合
@@ -54,11 +84,19 @@ insert into user values(1,"pass","test");
 ```
 
 ### GUI
-- http://localhost:8080 にアクセス
+- http://localhost:8080 にアクセスすると、ログイン画面にリダイレクトされる。
   - username: test
   - password: pass
 
 ### API
+|HTTP メソッド|URI|機能|
+|---|---|---|
+|GET|/api/todos|全ての todo を取得する。|
+|GET|/api/todos/{id}|一つの todo を取得する。|
+|POST|/api/todos|todo を新規登録する。|
+|PUT|/api/todos/{id}|todo を更新する。|
+|DELETE|/api/todos/{id}|todo を削除する。|
+
 - Cookie を保存。
 ```bash
 curl -i -c cookie.txt -X POST -d "username=<ユーザ名>" -d "password=<パスワード>" localhost:8080/sign_in
@@ -67,7 +105,7 @@ curl -i -c cookie.txt -X POST -d "username=<ユーザ名>" -d "password=<パス�
 ```bash
 curl -X GET http://localhost:8080/api/todos -b cookie.txt
 curl -X GET http://localhost:8080/api/todos/{id}
-curl -X POST -H 'Content-Type:application/json' -d '{"todo":"hoge"}' http://localhost:8080/api/todos
+curl -X POST -H 'Content-Type:application/json' -d '{"todo":"hoge", "deadline":"2020-08-01"}' http://localhost:8080/api/todos
 curl -X PUT -H 'Content-Type:application/json' -d '{"todo":"hoge"}' http://localhost:8080/api/todos/{id}
 curl -X DELETE http://localhost:8080/api/todos/{id}
 ```
