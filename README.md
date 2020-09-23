@@ -3,10 +3,17 @@
   - ログイン認証あり。
   - 参照、追加、編集、削除を行える。
 - API としても使える。
+  - Discord に毎日12時に Todo を通知してくれる Bot を作成した。
+
+### スクリーンショット
+![メイン画面](screenshots/main-screen.png)
+![Discord画面](screenshots/discord-screen.png)
+
 ### 環境
 - Spring Boot 2.3.2
 - Java 11
 - MySQL 8.0.19
+
 ### DB 設計
 - todolist
 ```bash
